@@ -28,7 +28,7 @@
             <div class="col-md-4 mt-5 shadow">
                 <div class="card">
                     <div class="card-header bg-success-100 pt-1 pb-1">
-                        <h4 class="login-head">User Login</h4>
+                        <h4 class="login-head">Login</h4>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('user.login') }}">
