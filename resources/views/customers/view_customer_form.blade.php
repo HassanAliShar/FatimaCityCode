@@ -22,7 +22,7 @@
                 <div class="d-flex align-items-center mb-5">
                     <h1 class="keep-print-font fw-500 mb-0 text-primary flex-1 position-relative">
                         APPLICATION FORM
-                        <img  class="position-absolute pos-top pos-right mt-1 hidden-md-down keep-print-font" height="250" width="200" src="{{ asset('customer_images/'.$customer_info->images) }}">
+                        <img  class="position-absolute pos-top pos-right mt-1 hidden-md-down keep-print-font" height="150" width="100" src="{{ asset('customer_images') }}/{{ $customer_info->images ?? 'no_image.png' }}">
                     </h1>
                 </div>
                 <h3 class="color-primary-600 keep-print-font pt-4 m-0">
@@ -134,7 +134,9 @@
                         </tbody>
                     </table>
                 </div>
-                
+            </div>
+            <div class="col-sm-12 col-md-2 col-xl-4">
+                <img  class="position-absolute pos-top pos-right mt-1 hidden-md-down keep-print-font" height="150" width="100" src="{{ asset('customer_images') }}/{{ $customer_info->nominee->images ?? 'no_image.png' }}">
             </div>
             <div class="col-md-12 col-xl-12 col-sm-12">
                 <hr class="table-scale-border-bottom fw-700">
@@ -148,6 +150,14 @@
                         <tbody>
                             <tr>
                                 <th class="fw-900">
+                                    Plot Block:
+                                </th>
+                                <th>
+                                    {{ $customer_info->booking->plot->block->name ?? 'Not Given' }}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="fw-900">
                                     Plot No:
                                 </th>
                                 <th>
@@ -156,10 +166,10 @@
                             </tr>
                             <tr>
                                 <th class="fw-900">
-                                    Plot Block:
+                                    Plot Size:
                                 </th>
                                 <th>
-                                    {{ $customer_info->booking->plot->block->name ?? 'Not Given' }}
+                                    {{ $customer_info->booking->plot->size ?? 'Not Given' }}
                                 </th>
                             </tr>
                             <tr>

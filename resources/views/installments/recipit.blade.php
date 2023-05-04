@@ -53,15 +53,15 @@
                             </tr>
                             <tr>
                                 <td>
-                                    Currency:
+                                    Block:
                                 </td>
                                 <td>
-                                    PKR
+                                    {{ $invoice->booking->plot->name ?? 'Not Given' }}
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    Postal Address #
+                                    Plot No #
                                 </td>
                                 <td>
                                     {{ $invoice->postal_address }}

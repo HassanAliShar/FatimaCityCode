@@ -17,7 +17,7 @@ class CreateNomineesTable extends Migration
             $table->engine = 'InnoDB';
             $table->id();
             $table->string('name');
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->nullable();
             $table->string('mobile_no');
             $table->string('cnic_no');
             $table->string('phone')->nullable();
