@@ -53,6 +53,12 @@
                                             <input class="form-control" readonly value="{{ $installment->created_at }}" type="text" name="created_at">
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="amounts">Installment Details</label>
+                                            <input class="form-control" value="{{ $installment->installment_details ?? 'N/A' }}" type="text" name="ins_details">
+                                        </div>
+                                    </div>
                                     <div class="col-md-12 mt-3">
                                         <button type="submit" class="btn btn-primary float-right">Update Installment</button>
                                     </div>

@@ -50,6 +50,7 @@ class InstallmentController extends Controller
         $installment->booking_id = $request->booking_id;
         $installment->customer_id = $request->customer_id;
         $installment->installment_amount = $request->ins_amount;
+        $installment->installment_details = $request->ins_details;
 
         $booking_order = Booking_order::with('user.franchise')->find($request->booking_order_id);
         // $franchise = Franchise::where('user_id',$booking_order->user->id)->first();
@@ -105,6 +106,7 @@ class InstallmentController extends Controller
 
         $amount = $installment->installment_amount -=$request->ins_amount;
         $installment->installment_amount = $request->ins_amount;
+        $installment->installment_details = $request->ins_details;
         if($installment->save()){
             $booking = Booking_order::find($request->booking_order_id);
             $booking->total_amount += $amount;
