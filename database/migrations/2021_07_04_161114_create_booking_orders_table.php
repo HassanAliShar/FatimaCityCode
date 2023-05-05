@@ -20,10 +20,10 @@ class CreateBookingOrdersTable extends Migration
             $table->foreignId('created_by');
             $table->foreignId('customer_id');
             $table->string('status')->nullable();
-
             $table->foreign('created_by')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('customer_id')->references('id')->on('customers')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

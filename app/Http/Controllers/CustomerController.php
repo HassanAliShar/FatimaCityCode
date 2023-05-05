@@ -11,6 +11,7 @@ use App\Models\Customer;
 use App\Models\Franchise;
 use App\Models\Nominee;
 use App\Models\Plot;
+use Exception;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -155,7 +156,13 @@ class CustomerController extends Controller
     public function view_customer_form($id){
         $customer_info = Customer::with('nominee')->with('booking.plot.block')->find($id);
         // dd($customer_info);
-        return view('customers.view_customer_form',compact('customer_info'));
+        if(!is_null($customer_info)){
+            return view('customers.view_customer_form',compact('customer_info'));
+        }
+        else{
+            $customer_info = Customer::with('nominee')->with('booking.plot.block')->onlyTrashed()->find($id);
+            return view('customers.view_customer_form',compact('customer_info'));
+        }
     }
 
     public function update_customer(Request $request){
@@ -229,6 +236,22 @@ class CustomerController extends Controller
         else{
             return redirect()->back()->with('error','Customer Not Updated');
         }
+    }
+
+    public function destroy(Customer $customer){
+        try{
+            $customer->delete();
+            return redirect()->back()->with('success',"File Has Been Cancelled Successfully");
+        }
+        catch(Exception $ex){
+            return redirect()->back()->with('error',"File Not Cancel");
+        }
+    }
+
+    public function cancelledCustomers(){
+        $customer = Customer::with('bookings')->with('booking.plot.block')->onlyTrashed()->get();
+        // dd($customer);
+        return view('customers.cancelled',compact('customer'));
     }
 
 

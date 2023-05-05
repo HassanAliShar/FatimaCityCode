@@ -77,7 +77,9 @@
                                         @endphp
                                         <div class="col-md-4">
                                             <a href="{{ route('agent.installment.all.invoices',$installment->id) }}" class="btn btn-sm btn-primary float-right mb-3">All Invoice</a>
-                                            <a href="{{ route('agent.installment.payment') }}" class="btn btn-sm btn-primary float-right">New Installment</a>
+                                            @if(is_null($installment->deleted_at))
+                                                <a href="{{ route('agent.installment.payment') }}" class="btn btn-sm btn-primary float-right">New Installment</a>
+                                            @endif
                                         </div>
                                     </div>
                                 </th>
@@ -99,8 +101,10 @@
                                         <td>{{ $irow->created_at }}</td>
                                         <th>
                                             <a href="/agent/get_unique_invoice/{{ $irow->id }}/{{ $installment->id }}" class="btn btn-info btn-sm">View</a>
-                                            <a href="/agent/installment/delete/{{ $irow->id }}/{{ $installment->id }}" class="btn btn-sm btn-danger">Delete</a>
-                                            <a href="{{ route('agent.edit_customer_installment',$irow->id) }}" class="btn btn-sm btn-primary ml-2">Edit</a>
+                                            @if(is_null($installment->deleted_at))
+                                                <a href="/agent/installment/delete/{{ $irow->id }}/{{ $installment->id }}" class="btn btn-sm btn-danger">Delete</a>
+                                                <a href="{{ route('agent.edit_customer_installment',$irow->id) }}" class="btn btn-sm btn-primary ml-2">Edit</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

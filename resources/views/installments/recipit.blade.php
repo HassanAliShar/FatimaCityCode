@@ -121,6 +121,7 @@
                                 <th class="text-center border-top-0 table-scale-border-bottom fw-700"></th>
                                 <th class="border-top-0 table-scale-border-bottom fw-700">Recipits No #</th>
                                 <th class="border-top-0 table-scale-border-bottom fw-700">Installment Amount</th>
+                                <th class="border-top-0 table-scale-border-bottom fw-700">Installment Details</th>
                                 <th class="text-right border-top-0 table-scale-border-bottom fw-700">Installment Date</th>
                             </tr>
                         </thead>
@@ -139,6 +140,7 @@
                                     <td class="text-center fw-700">{{ $count }}</td>
                                     <td class="text-left strong">{{ $current_installent->id }}</td>
                                     <td class="text-left">Rs {{ $current_installent->installment_amount }}</td>
+                                    <td class="text-left">{{ $current_installent->installment_details ?? 'N/A' }}</td>
                                     <td class="text-right">{{ $current_installent->created_at }}</td>
                                 </tr>
                                 @php

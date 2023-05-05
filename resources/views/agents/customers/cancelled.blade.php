@@ -47,9 +47,9 @@
                                     <td>{{ $row->mobile_no }}</td>
                                     <td><a href="{{ route('agent.installment.show',$row->id) }}" class="btn btn-primary btn-sm">View</a></td>
                                     <th>
-                                        <a href="{{ route('agent.customer.show_details',$row->id) }}" class="btn btn-sm btn-info"> Profile</a>
-                                        <a href="{{ route('agent.customer.delete',$row->id) }}" class="btn btn-sm btn-danger"> Cancel File</a>
-                                        <a href="{{ route('agent.nominee_details_show',$row->id) }}" class="btn btn-sm btn-primary ml-2">Nominee</a></td>
+                                        {{-- <a href="{{ route('agent.customer.show_details',$row->id) }}" class="btn btn-sm btn-info"> Profile</a> --}}
+                                        {{-- <a href="{{ route('agent.customer.delete',$row->id) }}" class="btn btn-sm btn-danger"> Cancel File</a> --}}
+                                        {{-- <a href="{{ route('agent.nominee_details_show',$row->id) }}" class="btn btn-sm btn-primary ml-2">Nominee</a></td> --}}
                                         <a href="{{ route('admin.view.customer.form',$row->id) }}" class="btn btn-sm btn-primary ml-2">View Form</a>
                                 </tr>
                                 @endforeach

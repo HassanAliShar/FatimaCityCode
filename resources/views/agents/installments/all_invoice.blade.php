@@ -124,6 +124,7 @@
                                 <th class="text-center border-top-0 table-scale-border-bottom fw-700"></th>
                                 <th class="border-top-0 table-scale-border-bottom fw-700">Recipits No #</th>
                                 <th class="border-top-0 table-scale-border-bottom fw-700">Installment Amount</th>
+                                <th class="border-top-0 table-scale-border-bottom fw-700">Installment Details</th>
                                 <th class="text-right border-top-0 table-scale-border-bottom fw-700">Installment Date</th>
                             </tr>
                         </thead>
@@ -143,6 +144,7 @@
                                     <td class="text-center fw-700">{{ $count }}</td>
                                     <td class="text-left strong">{{ $row->id }}</td>
                                     <td class="text-left">Rs {{ $row->installment_amount }}</td>
+                                    <td class="text-left">{{ $row->installment_details ?? 'N/A' }}</td>
                                     <td class="text-right">{{ $row->created_at }}</td>
                                 </tr>
                                 @php
@@ -207,7 +209,7 @@
                 </table>
             </div>
         </div>
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-sm-12">
                 <h4 class="py-5 text-primary">
                     CEO BABAR, thank you very much. We really appreciate your Hopes.
@@ -215,7 +217,7 @@
                     Please check your all Installments.
                 </h4>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
 @endsection

@@ -55,6 +55,12 @@
                                             <input id="amounts" class="form-control" type="number" name="ins_amount">
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="amounts">Installment Details</label>
+                                            <input class="form-control" type="text" name="ins_details">
+                                        </div>
+                                    </div>
                                     <div class="col-md-12 mt-3">
                                         <button type="submit" class="btn btn-primary float-right">Pay Intallment</button>
                                     </div>

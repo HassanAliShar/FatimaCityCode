@@ -51,15 +51,22 @@
                 <li>
                     <a href="{{ route('add.cusotmer') }}" title="Introduction" data-filter-tags="application intel introduction">
                         <i class="fal fa-window"></i>
-                        <span class="nav-link-text" data-i18n="nav.application_intel_introduction">Plot Booking</span>
+                        <span class="nav-link-text" data-i18n="nav.application_intel_introduction">Plot Customer</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('manage.customer') }}" title="Privacy" data-filter-tags="application intel privacy">
                         <i class="fal fa-window"></i>
-                        <span class="nav-link-text" data-i18n="nav.application_intel_privacy">Show Booking</span>
+                        <span class="nav-link-text" data-i18n="nav.application_intel_privacy">Show Customers</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('admin.manage.cancelled.customers') }}" title="Privacy" data-filter-tags="application intel privacy">
+                        <i class="fal fa-window"></i>
+                        <span class="nav-link-text" data-i18n="nav.application_intel_privacy">Cancelled Files</span>
+                    </a>
+                </li>
+
                 <li class="nav-title">Bookings & Installments</li>
                 <li>
                     <a href="{{ route('installment.payment') }}" title="UI Components" data-filter-tags="ui components">
@@ -121,7 +128,13 @@
 
                     <a href="{{ route('agent.manage.customer') }}" title="Privacy" data-filter-tags="application intel privacy">
                         <i class="fal fa-window"></i>
-                        <span class="nav-link-text" data-i18n="nav.application_intel_privacy">Your Customers</span>
+                        <span class="nav-link-text" data-i18n="nav.application_intel_privacy">Show Customers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('agent.customer.cancelled') }}" title="Privacy" data-filter-tags="application intel privacy">
+                        <i class="fal fa-window"></i>
+                        <span class="nav-link-text" data-i18n="nav.application_intel_privacy">Cancelled Files</span>
                     </a>
                 </li>
                 <li class="nav-title">Create Plot Section</li>
