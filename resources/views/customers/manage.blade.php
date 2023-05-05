@@ -18,7 +18,7 @@
             <div class="panel-container show">
                 <div class="panel-content">
                     <!-- datatable start -->
-                    <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
+                    <table id="cust-basic-example" class="table table-bordered table-hover table-striped w-100">
                         <thead>
                             <tr>
                                 <th>Register No</th>

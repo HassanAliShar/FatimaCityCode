@@ -12,6 +12,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpanseController;
 use App\Http\Controllers\FranchiseController;
+use App\Http\Controllers\FranchisePaymentController;
+use App\Http\Controllers\FranchisePlotController;
 use App\Http\Controllers\InstallmentController;
 use App\Http\Controllers\PlotsController;
 use App\Http\Controllers\Users\UserController;
@@ -64,6 +66,13 @@ Route::get('/plots', [PlotsController::class, 'index'])->name('plots.manage')->m
 Route::post('/storeplot', [PlotsController::class, 'store'])->name('plot.store')->middleware('admin');
 Route::get('/plots/{block_id}/{cat_id}', [PlotsController::class , 'show_plot_blockid'])->name('plot.block.id');
 Route::get('/get_plot/{id}',[PlotsController::class , 'getplot'])->name('plots.get');
+Route::get('/plot/edit/{id}',[PlotsController::class , 'edit'])->name('plots.edit');
+Route::get('/plot/delete/{id}',[PlotsController::class , 'delete'])->name('plots.delete');
+Route::post('/plot/update',[PlotsController::class , 'update'])->name('plots.update');
+Route::get('/plot/get-franchises-plots',[PlotsController::class , 'get_franchises_plots'])->name('plots.get.franchises.plots');
+
+Route::post('/plot/franchises/accept/{id}',[PlotsController::class , 'accept_plot'])->name('plots.franchises.accept');
+Route::get('/plot/franchises/reject/{id}',[PlotsController::class , 'reject_plot'])->name('plots.franchises.reject');
 
 // Routes for Blocks
 Route::get('/blocks',[BlockController::class , 'index'])->name('block.manage')->middleware('admin');
@@ -81,6 +90,11 @@ Route::get('/franchise/active/{id}', [FranchiseController::class, 'franchise_act
 Route::get('/franchise/edit/{id}',[FranchiseController::class ,'edit'])->name('franchise.edit')->middleware('admin');
 Route::get('/franchise/delete/{id}',[FranchiseController::class, 'delete'])->name('franchise.delete')->middleware('admin');
 Route::post('/franchise/update', [FranchiseController::class, 'update'])->name('franchise.update')->middleware('admin');
+
+Route::get('/franchise/payments/{id}', [FranchisePaymentController::class, 'franchise_payments'])->name('franchise.payments')->middleware('admin');
+Route::get('/franchise/payments/delete/{id}', [FranchisePaymentController::class, 'delete'])->name('franchise.payments.delete')->middleware('admin');
+Route::get('/franchise/payments/edit/{id}', [FranchisePaymentController::class, 'edit'])->name('franchise.payments.edit')->middleware('admin');
+Route::post('/franchise/payments/update', [FranchisePaymentController::class, 'update'])->name('franchise.payments.update')->middleware('admin');
 
 // Routes for installments
 Route::get('/add/installment', [InstallmentController::class, 'create'])->name('installment.payment')->middleware('admin');
@@ -108,6 +122,14 @@ Route::get('/admin/dashboard',[DashboardController::class,'index'])->name('dashb
 
 // All Routes for Franchises
 Route::get('/agent/dashboard',[AdashboardController::class,'index'])->name('agent.dashboard.index')->middleware('franchise');
+
+
+Route::get('/agent/plots/add',[FranchisePlotController::class,'add'])->name('agent.plots.add')->middleware('franchise');
+Route::post('/agent/plots/store',[FranchisePlotController::class,'store'])->name('agent.plots.store')->middleware('franchise');
+Route::post('/agent/plots/update',[FranchisePlotController::class,'update'])->name('agent.plots.update')->middleware('franchise');
+Route::get('/agent/plots/edit/{id}',[FranchisePlotController::class,'edit'])->name('agent.plots.edit')->middleware('franchise');
+Route::get('/agent/plots/',[FranchisePlotController::class,'index'])->name('agent.plots.manage')->middleware('franchise');
+Route::get('/agent/plots/delete/{id}',[FranchisePlotController::class,'delete'])->name('agent.plots.delete')->middleware('franchise');
 
 // Route for agent Expanses
 Route::get('/agent/expanse',[AexpanseController::class,'index'])->name('agent.expase.manage')->middleware('franchise');

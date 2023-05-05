@@ -118,6 +118,19 @@
                         <span class="nav-link-text" data-i18n="nav.application_intel_privacy">Your Customers</span>
                     </a>
                 </li>
+                <li class="nav-title">Create Plot Section</li>
+                <li>
+                    <a href="{{ route('agent.plots.add') }}" title="Add New Plot" data-filter-tags="ui components">
+                        <i class="fal fa-window"></i>
+                        <span class="nav-link-text" data-i18n="nav.ui_components">Add Plot</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('agent.plots.manage') }}" title="Manage Plots" data-filter-tags="application intel introduction">
+                        <i class="fal fa-window"></i>
+                        <span class="nav-link-text" data-i18n="nav.application_intel_introduction">Manage</span>
+                    </a>
+                </li>
                 <li class="nav-title">Bookings & Installments</li>
                 <li>
                     <a href="{{ route('agent.installment.payment') }}" title="UI Components" data-filter-tags="ui components">
