@@ -408,12 +408,6 @@
         </div>
     </div>
 </div>
-<!-- Testimonials Section -->
-<div id="testimonials">
-  <div class="container">
-    <div class="section-title">
-      <h2>Our Branchies</h2>
-    </div>
 <div id="testimonials">
     <div class="container">
         <div class="row">
@@ -426,7 +420,6 @@
                   <li data-target="#myCarousel" data-slide-to="1"></li>
                   <li data-target="#myCarousel" data-slide-to="2"></li>
                 </ol>
-
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" style="max-height: 500px; min-height: 300px;">
                   <div class="item active">

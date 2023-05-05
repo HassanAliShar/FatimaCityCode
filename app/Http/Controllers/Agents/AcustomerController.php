@@ -36,8 +36,9 @@ class AcustomerController extends Controller
     public function store(Request $request){
         
         $request->validate([
+            
             'name'=>'required|string|max:50',
-            'email' => 'required|unique:customers,email',
+            'email' => 'nullable',
             'mobile_no' => 'required|max:12|min:10',
             'cnic_no' => 'nullable|numeric|min:12|max:14',
             'phone' => 'nullable|numeric|min:10|max:12',
@@ -47,7 +48,7 @@ class AcustomerController extends Controller
             'passport' => 'nullable',
             'gardion' => 'nullable|string',
             'relation' => 'nullable',
-            'n_email' => 'nullable|unique:nominees,email',
+            'n_email' => 'nullable',
             'preferred_choices'=>'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'n_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
