@@ -54,6 +54,7 @@
         <li><a href="#services" class="page-scroll">Services</a></li>
         <li><a href="#portfolio" class="page-scroll">Projects</a></li>
         <li><a href="#testimonials" class="page-scroll">Life Style</a></li>
+        {{-- <li><a href="#booking_details" class="page-scroll">Booking Details</a></li> --}}
         <li><a href="#contact" class="page-scroll">Contact</a></li>
         @if (session('email') != "")
             <li><a href="{{ route('logout') }}">Logout &nbsp;<i class="fa fa-sign-in pl-2"></i></a></li>
@@ -74,7 +75,7 @@
         <div class="row">
           <div class="col-md-8 col-md-offset-2 intro-text">
             <h1>Book Your Plot<br>
-              at Rawalpindi Loation</h1>
+              at Karachi M9 Moterway Loation</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam. Sed commodo nibh ante facilisis bibendum dolor feugiat at.</p>
             <a href="#about" class="btn btn-custom btn-lg page-scroll">Learn More</a> </div>
         </div>
@@ -576,13 +577,13 @@
     <div class="col-md-3 col-md-offset-1 contact-info">
       <div class="contact-item">
         <h4>Contact Info</h4>
-        <p><span>Address</span>RawalPindi Pakistan</p>
+        <p><span>Address</span>Karachi M9 Moterway Pakistan</p>
       </div>
       <div class="contact-item">
         <p><span>Phone</span> +92313-1119396</p>
       </div>
       <div class="contact-item">
-        <p><span>Email</span> info@rufitown.com</p>
+        <p><span>Email</span> info@newfatimacity.com</p>
       </div>
     </div>
     <div class="col-md-12">
