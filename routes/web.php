@@ -59,6 +59,8 @@ Route::post('/update_customer', [CustomerController::class, 'update_customer'])-
 Route::get('/nominee_details_show/{id}', [CustomerController::class , 'nominee_details_show'])->name('admin.nominee_details_show');
 Route::post('/update_nominee',[CustomerController::class , 'update_nominee'])->name('admin.updaate_nominee');
 Route::get('customer/info/{id}',[CustomerController::class , 'view_customer_form'])->name('admin.view.customer.form');
+Route::get('customer/destroy/{customer}',[CustomerController::class , 'destroy'])->name('admin.view.customer.delete');
+Route::get('customer/cancelled/',[CustomerController::class , 'cancelledCustomers'])->name('admin.manage.cancelled.customers');
 
 // Routes for Plots
 Route::get('/plots/add', [PlotsController::class ,'add'])->name('plots.add')->middleware('admin');
@@ -160,6 +162,8 @@ Route::post('/agent/update_customer', [AcustomerController::class, 'update_custo
 Route::get('/agent/nominee_details_show/{id}', [AcustomerController::class , 'nominee_details_show'])->name('agent.nominee_details_show')->middleware('franchise');
 Route::post('/agent/update_nominee',[AcustomerController::class , 'update_nominee'])->name('agent.updaate_nominee')->middleware('franchise');
 Route::get('/agent/check',[AcustomerController::class , 'checkUser'])->name('agent.check');
+Route::get('/agent/customer/destroy/{customer}',[AcustomerController::class , 'destroy'])->name('agent.customer.delete');
+Route::get('/agent/customer/cancelled',[AcustomerController::class , 'cancelledCustomers'])->name('agent.customer.cancelled');
 
 Route::post('/contactUs',[ContactController::class, 'contactus'])->name('contact.us');
 

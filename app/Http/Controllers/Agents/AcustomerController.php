@@ -12,6 +12,7 @@ use App\Models\Customer;
 use App\Models\Franchise;
 use App\Models\Nominee;
 use App\Models\Plot;
+use Exception;
 use Illuminate\Http\Request;
 
 class AcustomerController extends Controller
@@ -225,5 +226,20 @@ class AcustomerController extends Controller
         else{
             return redirect()->back()->with('error','Customer Not Updated');
         }
+    }
+
+    public function destroy(Customer $customer){
+        try{
+            $customer->delete();
+            return redirect()->back()->with('success',"File Has Been Cancelled Successfully");
+        }
+        catch(Exception $ex){
+            return redirect()->back()->with('error',"File Not Cancel");
+        }
+    }
+
+    public function cancelledCustomers(){
+        $customer = Customer::with('bookings')->with('booking.plot')->where('created_by',session()->get('id'))->onlyTrashed()->get();
+        return view('agents.customers.cancelled',compact('customer'));
     }
 }

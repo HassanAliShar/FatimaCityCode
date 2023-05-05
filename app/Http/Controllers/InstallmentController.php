@@ -28,20 +28,34 @@ class InstallmentController extends Controller
         $installment = Customer::with('booking.plot.block')->with('installments')->with('booking_orders')->where('id',$id)->first();
 
         // dd($installment);
-        return view('installments.manage',compact('installment'));
+        if(!is_null($installment)){
+            return view('installments.manage',compact('installment'));
+        }
+        else{
+            $installment = Customer::with('booking.plot.block')->with('installments')->with('booking_orders')->where('id',$id)->onlyTrashed()->first();
+            // dd($installment);
+            return view('installments.manage',compact('installment'));
+        }
     }
 
     public function viwe_all_invoices($id){
         $invoice = Customer::with('booking.plot.block')->with('installments')->with('booking_orders')->find($id);
         $date =  Carbon::now()->format('d/m/yy');
-        $count_installment = $invoice->installments->count();
-
-
-
+        
+        
+        
         // dd($invoice->bookings->down_payment);
-
+        
         // dd($installment);
-        return view('installments.all_invoice',compact('invoice','date','count_installment'));
+        if(!is_null($invoice)){
+            $count_installment = $invoice->installments->count();
+            return view('installments.all_invoice',compact('invoice','date','count_installment'));
+        }
+        else{
+            $invoice = Customer::with('booking.plot.block')->with('installments')->with('booking_orders')->onlyTrashed()->find($id);
+            $count_installment = $invoice->installments->count();
+            return view('installments.all_invoice',compact('invoice','date','count_installment'));
+        }
     }
 
     public function store(Request $request){
@@ -76,14 +90,20 @@ class InstallmentController extends Controller
         $invoice = Customer::with('booking.plot.block')->with('installments')->with('booking_orders')->find($id);
         // dd($invoice);
         $date =  Carbon::now()->format('d/m/yy');
-        $current_installent = Booking_installment::find($ins_id);
-        $count_installment = $current_installent->count();
-        return view('installments.previus_invoice',compact('invoice','date','count_installment','current_installent'));
+        if(!is_null($invoice)){
+            $current_installent = Booking_installment::find($ins_id);
+            $count_installment = $current_installent->count();
+            return view('installments.previus_invoice',compact('invoice','date','count_installment','current_installent'));
+        }
+        else{
+            $invoice = Customer::with('booking.plot.block')->with('installments')->with('booking_orders')->onlyTrashed()->find($id);
+            $current_installent = Booking_installment::find($ins_id);
+            $count_installment = $current_installent->count();
+            return view('installments.previus_invoice',compact('invoice','date','count_installment','current_installent'));
+        }
     }
 
     public function delete_invoice($id,$c_id){
-
-
         $installment = Booking_installment::find($id);
         $deleted_installment_amount = $installment->installment_amount;
         $booking_order = Booking_order::find($installment->booking_order_id);
@@ -103,7 +123,6 @@ class InstallmentController extends Controller
 
     public function update_customer_installment(Request $request){
         $installment = Booking_installment::find($request->id);
-
         $amount = $installment->installment_amount -=$request->ins_amount;
         $installment->installment_amount = $request->ins_amount;
         $installment->installment_details = $request->ins_details;

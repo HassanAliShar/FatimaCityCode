@@ -18,7 +18,7 @@
             <div class="panel-container show">
                 <div class="panel-content">
                     <!-- datatable start -->
-                    <table id="cust-basic-example" class="table table-bordered table-hover table-striped w-100">
+                    <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
                         <thead>
                             <tr>
                                 <th>Register No</th>
@@ -48,7 +48,7 @@
                                     <td><a href="{{ route('installment.show',$row->id) }}" class="btn btn-primary btn-sm">View</a></td>
                                     <th>
                                         <a href="{{ route('customer.show_details',$row->id) }}" class="btn btn-sm btn-info"> Edit Customer</a>
-                                        <button class="btn btn-sm btn-danger">Delete</button>
+                                        <a href="{{ route('admin.view.customer.delete',$row->id) }}" class="btn btn-sm btn-danger">Cancel File</a>
                                         <a href="{{ route('admin.nominee_details_show',$row->id) }}" class="btn btn-sm btn-primary ml-2">Edit Nominee</a>
                                         <a href="{{ route('admin.view.customer.form',$row->id) }}" class="btn btn-sm btn-primary ml-2">View Form</a>
                                     

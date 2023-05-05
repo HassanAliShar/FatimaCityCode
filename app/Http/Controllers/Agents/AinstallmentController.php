@@ -26,16 +26,30 @@ class AinstallmentController extends Controller
     public function show($id){
         $installment = Customer::with('bookings')->with('installments')->with('booking_orders')->where('id',$id)->where('created_by',session()->get('id'))->first();
         // dd($installment);
-        return view('agents.installments.manage',compact('installment'));
+        if(!is_null($installment)){
+            return view('agents.installments.manage',compact('installment'));
+        }
+        else{
+            $installment = Customer::with('bookings')->with('installments')->with('booking_orders')->where('id',$id)->where('created_by',session()->get('id'))->onlyTrashed()->first();
+            return view('agents.installments.manage',compact('installment'));
+
+        }
     }
 
     public function viwe_all_invoices($id){
         $invoice = Customer::with('bookings')->with('installments')->with('booking_orders')->find($id);
         $date =  Carbon::now()->format('d/m/yy');
-        $count_installment = $invoice->installments->count();
         // dd($invoice->bookings->down_payment);
         // dd($installment);
-        return view('agents.installments.all_invoice',compact('invoice','date','count_installment'));
+        if(!is_null($invoice)){
+            $count_installment = $invoice->installments->count();
+            return view('agents.installments.all_invoice',compact('invoice','date','count_installment'));
+        }
+        else{
+            $invoice = Customer::with('bookings')->with('installments')->with('booking_orders')->onlyTrashed()->find($id);
+            $count_installment = $invoice->installments->count();
+            return view('agents.installments.all_invoice',compact('invoice','date','count_installment'));
+        }
     }
 
     public function store(Request $request){
@@ -70,8 +84,15 @@ class AinstallmentController extends Controller
         $invoice = Customer::with('bookings')->with('installments')->with('booking_orders')->find($id);
         $date =  Carbon::now()->format('d/m/yy');
         $current_installent = Booking_installment::find($ins_id);
-        $count_installment = $current_installent->count();
-        return view('agents.installments.previus_invoice',compact('invoice','date','count_installment','current_installent'));
+        if(!is_null($invoice)){
+            $count_installment = $current_installent->count();
+            return view('agents.installments.previus_invoice',compact('invoice','date','count_installment','current_installent'));
+        }
+        else{
+            $invoice = Customer::with('bookings')->with('installments')->with('booking_orders')->onlyTrashed()->find($id);
+            $count_installment = $current_installent->count();
+            return view('agents.installments.previus_invoice',compact('invoice','date','count_installment','current_installent'));
+        }
     }
 
     public function delete_invoice($id,$c_id){
