@@ -21,40 +21,37 @@
                             {{ Session::get('success') }}
                         </div>
                     @endif
+                    @if (Session::has('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ Session::get('error') }}
+                        </div>
+                    @endif
                     <!-- datatable start -->
                     <table id="dt-basic-example" class="table table-bordered table-hover table-striped w-100">
                         <thead>
                             <tr>
-                                <th>Franchise No</th>
+                                <th>Franchise Name</th>
                                 <th>Agent Name</th>
-                                <th>Agnet Email</th>
-                                <th>Agent Mobile No</th>
-                                <th>Amount Percent</th>
-                                <th>Agent Limit</th>
-                                <th>Agent Total Amount</th>
-                                <th>Agent Commision</th>
+                                <th>Total Amount</th>
+                                <th>Payable Amount</th>
+                                <th>Agent Commission</th>
+                                <th>Payment Date</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (isset($users))
-                                @foreach ($users as $row)
+                            @if (isset($franchise_payments))
+                                @foreach ($franchise_payments as $row)
                                 <tr>
-                                    <td>{{ $row->id }}</td>
-                                    <td>{{ $row->name }}</td>
-                                    <td>{{ $row->email }}</td>
-                                    <td>{{ $row->mobile_no }}</td>
-                                    <td>{{ $row->franchise->percent ?? '0' }}%</td>
-                                    <td>{{ $row->franchise->limit_amount ?? '0' }}</td>
-                                    <td>{{ $row->franchise->total_amount ?? '0' }}</td>
-                                    <td>{{ $row->franchise->total_amount * (($row->franchise->percent/100)) }}</td>
+                                    <td>{{ $row->franchise->name ?? 'Not Given' }}</td>
+                                    <td>{{ $row->franchise->user->name ?? 'Not Given' }}</td>
+                                    <td>{{ $row->total_amount ?? 0 }}</td>
+                                    <td>{{ $row->paid_amount ?? 0 }}</td>
+                                    <td>{{ $row->commission ?? 0 }}%</td>
+                                    <td>{{ $row->created_at ?? '' }}</td>
                                     <th>
-                                        @if ($row->franchise->total_amount >= $row->franchise->limit_amount)
-                                            <a href="{{ route('franchise.active',$row->franchise->id) }}" class="btn btn-sm btn-success">Paid</a>
-                                        @endif
-                                        <a href="{{ route('franchise.delete',$row->id) }}" class="btn btn-sm btn-danger">Delete</a>
-                                        <a href="{{ route('franchise.edit',$row->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                        <a href="{{ route('franchise.payments',$row->franchise->id) }}" class="btn btn-sm btn-info">Payments</a>
+                                        <a href="{{ route('franchise.payments.delete',$row->id) }}" class="btn btn-sm btn-danger">Delete</a>
+                                        <a href="{{ route('franchise.payments.edit',$row->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -63,14 +60,12 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Franchise No</th>
+                                <th>Franchise Name</th>
                                 <th>Agent Name</th>
-                                <th>Agnet Email</th>
-                                <th>Agent Mobile No</th>
-                                <th>Amount Percent</th>
-                                <th>Agent Limit</th>
-                                <th>Agent Total Amount</th>
-                                <th>Agent Commision</th>
+                                <th>Total Amount</th>
+                                <th>Payable Amount</th>
+                                <th>Agent Commission</th>
+                                <th>Payment Date</th>
                                 <th>Action</th>
 
                             </tr>

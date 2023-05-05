@@ -26,6 +26,7 @@
                                 <th>Plot Type</th>
                                 <th>Plot Size</th>
                                 <th>Plot Price</th>
+                                <th>Confirm Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -39,9 +40,12 @@
                                     <td>{{ $row->block_type_id == 1 ? 'Commercial' : 'Residential' }}</td>
                                     <td>{{ $row->size }}</td>
                                     <td>{{ $row->total_price }}</td>
+                                    <td>{{ $row->confirm_status ?? 'Pending' }}</td>
                                     <th>
-                                        <a href="{{ route('plots.delete',$row->id) }}" class="btn btn-sm btn-danger">Delete</a>
-                                        <a href="{{ route('plots.edit',$row->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                        <a href="{{ route('agent.plots.delete',$row->id) }}" class="btn btn-sm btn-danger">Delete</a>
+                                        @if($row->confirm_status != "Accepted")
+                                            <a href="{{ route('agent.plots.edit',$row->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
@@ -56,6 +60,7 @@
                                 <th>Plot Type</th>
                                 <th>Plot Size</th>
                                 <th>Plot Price</th>
+                                <th>Confirm Status</th>
                                 <th>Action</th>
 
                             </tr>

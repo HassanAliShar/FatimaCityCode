@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Franchise;
+use App\Models\FranchisePayment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -73,6 +74,12 @@ class FranchiseController extends Controller
 
     public function franchise_active($id){
         $franchise = Franchise::find($id);
+        $payment = new FranchisePayment();
+        $payment->franchise_id = $franchise->id;
+        $payment->total_amount = $franchise->total_amount;
+        $payment->paid_amount = $franchise->total_amount * (1-($franchise->percent/100));
+        $payment->commission = $franchise->total_amount * (($franchise->percent/100));
+        $payment->save();
         $franchise->total_amount = 0;
         if($franchise->save()){
             // toastr()->error("Franchise Activated");
