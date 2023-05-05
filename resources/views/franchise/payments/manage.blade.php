@@ -35,6 +35,7 @@
                                 <th>Total Amount</th>
                                 <th>Payable Amount</th>
                                 <th>Agent Commission</th>
+                                <th>Remaining Amount</th>
                                 <th>Payment Date</th>
                                 <th>Action</th>
                             </tr>
@@ -47,7 +48,8 @@
                                     <td>{{ $row->franchise->user->name ?? 'Not Given' }}</td>
                                     <td>{{ $row->total_amount ?? 0 }}</td>
                                     <td>{{ $row->paid_amount ?? 0 }}</td>
-                                    <td>{{ $row->commission ?? 0 }}%</td>
+                                    <td>{{ $row->commission ?? 0 }}</td>
+                                    <td>{{ ($row->total_amount-$row->commission)-$row->paid_amount ?? 0 }}</td>
                                     <td>{{ $row->created_at ?? '' }}</td>
                                     <th>
                                         <a href="{{ route('franchise.payments.delete',$row->id) }}" class="btn btn-sm btn-danger">Delete</a>
