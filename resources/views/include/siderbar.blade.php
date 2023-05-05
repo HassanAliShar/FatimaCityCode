@@ -41,6 +41,12 @@
                         <span class="nav-link-text" data-i18n="nav.theme_settings_layout_options">Plot Details</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('plots.get.franchises.plots') }}" title="Franchises plots" data-filter-tags="theme settings layout options">
+                        <i class="fal fa-window"></i>
+                        <span class="nav-link-text" data-i18n="nav.theme_settings_layout_options">Franchises Plots</span>
+                    </a>
+                </li>
                 <li class="nav-title">Booking Section</li>
                 <li>
                     <a href="{{ route('add.cusotmer') }}" title="Introduction" data-filter-tags="application intel introduction">
