@@ -17,9 +17,9 @@ class UserSeeder extends Seeder
         DB::table('users')->insert(
             [
                 'name'=>'Admin',
-                'email'=>'admin@rufitown.com',
+                'email'=>'admin@newfatimacity.com',
                 'mobile_no'=>'923063883430',
-                'password'=>sha1('12345678'),
+                'password'=>sha1('12345@aA'),
                 'role_id'=>1,
             ]
         );
