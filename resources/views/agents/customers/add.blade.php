@@ -38,7 +38,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserName">Select Block</label>
-                        <select class="form-control select2 blocks_id" name="block">
+                        <select class="form-control select2 blocks_id" required name="block">
                             <option>Select Block</option>
                             @if (isset($blocks))
                                 @foreach ($blocks as $row)
@@ -51,7 +51,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserName">Select Type</label>
-                        <select class="form-control select2 block_cat" name="type">
+                        <select class="form-control select2 block_cat" required name="type">
                             <option>Select Plot</option>
                             @if (isset($block_cat))
                                 @foreach ($block_cat as $row)
@@ -63,7 +63,7 @@
                 </div><div class="col-md-4">
                     <div class="form-group">
                         <label for="UserName">Select Plot</label>
-                        <select class="form-control select2 plots" name="plot">
+                        <select class="form-control select2 plots" required name="plot">
                             <option>Select Plot</option>
                         </select>
                     </div>
@@ -96,61 +96,61 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserName">Name</label>
-                        <input id="UserName" class="form-control" placeholder="Enter Name" type="text" name="name" >
+                        <input id="UserName" value="{{ old('name') }}" class="form-control" required placeholder="Enter Name" type="text" name="name" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserEmail">Email</label>
-                        <input id="UserEmail" class="form-control" placeholder="Enter Email" type="text" name="email" >
+                        <input id="UserEmail" value="{{ old('email') }}" class="form-control" placeholder="Enter Email" type="text" name="email" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="MobileNumber">Mobile Number</label>
-                        <input id="MobileNumber" class="form-control" type="text" name="mobile_no" >
+                        <input id="MobileNumber" value="{{old('mobile_no')}}" class="form-control" required type="text" name="mobile_no" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserCnic">CNIC Number</label>
-                        <input id="UserCnic" class="form-control" type="text" name="cnic_no" >
+                        <input id="UserCnic" value="{{ old('cnic_no') }}" class="form-control" required type="text" name="cnic_no" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserAddress">Phone</label>
-                        <input id="UserAddress" class="form-control" type="text" name="phone" >
+                        <input id="UserAddress" value="{{ old('phone') }}" class="form-control" type="text" name="phone" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserAddress"> Permanent Address</label>
-                        <input id="UserAddress" class="form-control" type="text" name="address" >
+                        <input id="UserAddress" value="{{ old('address') }}" class="form-control" required type="text" name="address" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserAddress">Postal Address</label>
-                        <input id="UserAddress" class="form-control" type="text" name="p_address" >
+                        <input id="UserAddress" value="{{ old('p_address') }}" class="form-control" type="text" name="p_address" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserAddress">Passport</label>
-                        <input id="UserAddress" class="form-control" type="text" name="passport" >
+                        <input id="UserAddress" value="{{ old('passport') }}" class="form-control" type="text" name="passport" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserAddress">Select Image</label>
-                        <input id="UserAddress" class="form-control" type="file" name="image" >
+                        <input id="UserAddress" value="{{ old('image') }}" class="form-control" required type="file" name="image" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserAddress">Gander</label>
-                        <select class="form-control" name="gender">
+                        <select class="form-control" required name="gender">
                             <option>--Select Gende--</option>
                             <option>Male</option>
                             <option>Female</option>
@@ -161,17 +161,17 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserAddress">Father/Husband</label>
-                        <input id="UserAddress" class="form-control" type="text" name="gardion" >
+                        <input id="UserAddress" value="{{ old('gardion') }}" required class="form-control" type="text" name="gardion" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserAddress">Select Relation</label>
-                        <select class="form-control" name="relation">
+                        <select class="form-control" required name="relation">
                             <option>-- Select Relation</option>
-                            <option>S/O</option>
-                            <option>D/O</option>
-                            <option>W/O</option>
+                            <option value="S/O">S/O</option>
+                            <option value="D/O">D/O</option>
+                            <option value="W/O">W/O</option>
                         </select>
                     </div>
                 </div>
@@ -184,76 +184,76 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserName">Nominee Name</label>
-                        <input id="UserName" class="form-control" placeholder="Enter Name" type="text" name="n_name" >
+                        <input id="UserName" required value="{{ old('n_name') }}" class="form-control" placeholder="Enter Name" type="text" name="n_name" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserEmail">Nominee Email</label>
-                        <input id="UserEmail" class="form-control" placeholder="Enter Email" type="text" name="n_email" >
+                        <input id="UserEmail" value="{{ old('n_email') }}" class="form-control" placeholder="Enter Email" type="text" name="n_email" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="MobileNumber">Nominee Mobile Number</label>
-                        <input id="MobileNumber" class="form-control" type="text" name="n_mobile_no" >
+                        <input id="MobileNumber" value="{{ old('n_mobile_no') }}" class="form-control" type="text" name="n_mobile_no" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserCnic">Nominee CNIC Number</label>
-                        <input id="UserCnic" class="form-control" type="text" name="n_cnic_no" >
+                        <input id="UserCnic" value="{{ old('n_cnic_no') }}" class="form-control" type="text" name="n_cnic_no" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserAddress">Nominee Phone</label>
-                        <input id="UserAddress" class="form-control" type="text" name="n_phone" >
+                        <input id="UserAddress" value="{{ old('n_phone') }}" class="form-control" type="text" name="n_phone" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserAddress">Nominee Permanent Address</label>
-                        <input id="UserAddress" class="form-control" type="text" name="n_address" >
+                        <input id="UserAddress" value="{{ old('n_address') }}" class="form-control" type="text" name="n_address" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserAddress">Nominee Postal Address</label>
-                        <input id="UserAddress" class="form-control" type="text" name="n_p_address" >
+                        <input id="UserAddress" value="{{ old('n_p_address') }}" class="form-control" type="text" name="n_p_address" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserAddress">Nominee Passport</label>
-                        <input id="UserAddress" class="form-control" type="text" name="n_passport" >
+                        <input id="UserAddress" value="{{ old('n_passport') }}" class="form-control" type="text" name="n_passport" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserAddress">Nominee Image</label>
-                        <input id="UserAddress" class="form-control" type="file" name="n_image" >
+                        <input id="UserAddress" value="{{ old('n_image') }}" required class="form-control" type="file" name="n_image" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserAddress">Nominee Gander</label>
-                        <input id="UserAddress" class="form-control" type="text" name="n_gender" >
+                        <input id="UserAddress" value="{{ old('n_gender') }}" required class="form-control" type="text" name="n_gender" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserAddress">Nominee Father/Husband</label>
-                        <input id="UserAddress" class="form-control" type="text" name="n_gardion" >
+                        <input id="UserAddress" value="{{ old('n_gardion') }}" required class="form-control" type="text" name="n_gardion" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserAddress">Nominee Select Relation</label>
-                        <select class="form-control" name="n_relation">
-                            <option>S/O</option>
-                            <option>D/O</option>
-                            <option>W/O</option>
+                        <select class="form-control" required name="n_relation">
+                            <option value="S/O">S/O</option>
+                            <option value="D/O">D/O</option>
+                            <option value="W/O">W/O</option>
                         </select>
                     </div>
                 </div>
@@ -266,13 +266,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="UserName">Down Payment</label>
-                        <input id="UserName" class="form-control down_payment" placeholder="Enter Name" type="text" name="d_payment" >
+                        <input id="UserName" value="{{ old('d_payment') }}" required class="form-control down_payment" placeholder="Enter Name" type="text" name="d_payment" >
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="UserEmail">Installment Amount</label>
-                        <input id="UserEmail" class="form-control intallment" placeholder="Enter Email" type="text" name="installment" >
+                        <input id="UserEmail" required value="{{ old('installment') }}" class="form-control intallment" placeholder="Enter Installment Amount" type="text" name="installment" >
                     </div>
                 </div>
             </div>
