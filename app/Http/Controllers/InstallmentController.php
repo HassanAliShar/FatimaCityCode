@@ -9,6 +9,7 @@ use App\Models\Customer;
 use App\Models\Franchise;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InstallmentController extends Controller
 {
@@ -68,6 +69,7 @@ class InstallmentController extends Controller
 
         $booking_order = Booking_order::with('user.franchise')->find($request->booking_order_id);
         // $franchise = Franchise::where('user_id',$booking_order->user->id)->first();
+        // dd($booking_order);
         $total = $booking_order->total_amount;
         $booking_order->total_amount = $total - $request->ins_amount;
         $booking_order->save();
@@ -79,7 +81,9 @@ class InstallmentController extends Controller
                 $franchise->total_amount += $request->ins_amount;
                 $franchise->save();
             }
-
+            $customer = Customer::find($request->customer_id);
+            $customer->last_payment = Carbon::now();
+            $customer->save();
             return redirect('/get_unique_invoice/'.$installment->id.'/'.$request->customer_id);
         }
         else{
@@ -140,5 +144,42 @@ class InstallmentController extends Controller
 
     public function create_customer_installment($c_id,$b_o_id,$b_id){
         return $c_id." ".$b_o_id." ".$b_id;
+    }
+
+    public function remaining_installment_users(){
+        // $now = Carbon::now();
+        // $currentMonth = $now->month;
+        // $currentYear = $now->year;
+        // $users = Customer::whereHas('installments', function ($query) use ($currentMonth, $currentYear) {
+        //     dd($query);
+        //     $query->whereMonth('created_at','!=',Carbon::now());
+        // })->get();
+        $customer_ids = array();
+        $customers = DB::table('customers')
+            ->leftJoin('booking_installments', function($join) {
+                $join->on('customers.id', '=', 'booking_installments.customer_id')
+                     ->whereRaw('MONTH(booking_installments.created_at) = MONTH(NOW())');
+            })
+            ->whereNull('booking_installments.id')
+            ->select('customers.id','customers.last_payment')
+            ->whereNull('deleted_at')
+            ->get();
+            // ->filter(function ($customers) {
+            //     $lastPaymentDate = Carbon::parse($customers->last_payment);
+            //     $monthsDifference = $lastPaymentDate->diffInMonths(Carbon::now());
+
+            //     return $monthsDifference >= 1;
+            // });
+        //  dd($customers);
+        foreach($customers as $customer){
+            array_push($customer_ids,$customer->id);
+        } 
+
+        $customer = Customer::with('bookings')->with('booking.plot.block')->get();
+        if(!is_null($customer)){
+            return view('agents.installments.current_month_defaulter',compact('customer','customer_ids'));
+        }
+
+        // dd($customer_ids);
     }
 }

@@ -62,7 +62,7 @@
                     </ul>
                 </li>
 
-                <li class="{{ Request::routeIs('add.cusotmer') ||  Request::routeIs('manage.customer') || Request::routeIs('admin.manage.cancelled.customers') ? 'active' : '' }}">
+                <li class="{{ Request::routeIs('add.cusotmer') ||  Request::routeIs('manage.customer') || Request::routeIs('installment.remaining') || Request::routeIs('admin.manage.cancelled.customers') ? 'active' : '' }}">
                     <a href="#" title="Customers" data-filter-tags="customers">
                         <i class="fal fa-users"></i>
                         <span class="nav-link-text px-2" data-nav="nav.customers">Customers</span>
@@ -78,6 +78,12 @@
                             <a href="{{ route('manage.customer') }}" title="Privacy" data-filter-tags="application intel privacy">
                                 <i class="fal fa-users"></i>
                                 <span class="nav-link-text" data-i18n="nav.application_intel_privacy">Show Customers</span>
+                            </a>
+                        </li>
+                        <li class="{{ Request::routeIs('installment.remaining') ? 'active' : '' }}">
+                            <a href="{{ route('installment.remaining') }}" title="Privacy" data-filter-tags="application intel privacy">
+                                <i class="fal fa-user-times "></i>
+                                <span class="nav-link-text" data-i18n="nav.application_intel_privacy">Cancelled Files</span>
                             </a>
                         </li>
                         <li class="{{ Request::routeIs('admin.manage.cancelled.customers') ? 'active' : '' }}">
@@ -152,7 +158,7 @@
                         <span class="nav-link-text" data-i18n="nav.ui_components">Profile</span>
                     </a>
                 </li>
-                <li class="{{ Request::routeIs('agent.add.cusotmer') ||  Request::routeIs('agent.manage.customer') || Request::routeIs('agent.customer.cancelled') ? 'active' : '' }}">
+                <li class="{{ Request::routeIs('agent.add.cusotmer') ||  Request::routeIs('agent.manage.customer')|| Request::routeIs('agent.installment.remaining') || Request::routeIs('agent.customer.cancelled') ? 'active' : '' }}">
                     <a href="#" title="Branch Customers" data-filter-tags="customers">
                         <i class="fal fa-users"></i>
                         <span class="nav-link-text px-2" data-nav="nav.customers">Customers</span>
@@ -168,6 +174,12 @@
                             <a href="{{ route('agent.manage.customer') }}" title="Privacy" data-filter-tags="application intel privacy">
                                 <i class="fal fa-users"></i>
                                 <span class="nav-link-text" data-i18n="nav.application_intel_privacy">Show Customers</span>
+                            </a>
+                        </li>
+                        <li class="{{ Request::routeIs('agent.installment.remaining') ? 'active' : '' }}">
+                            <a href="{{ route('agent.installment.remaining') }}" title="Privacy" data-filter-tags="application intel privacy">
+                                <i class="fal fa-user-times"></i>
+                                <span class="nav-link-text" data-i18n="nav.application_intel_privacy">Remaining Customers</span>
                             </a>
                         </li>
                         <li class="{{ Request::routeIs('agent.customer.cancelled') ? 'active' : '' }}">
