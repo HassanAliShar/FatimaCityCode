@@ -13,6 +13,7 @@ use App\Models\Nominee;
 use App\Models\Plot;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -28,121 +29,130 @@ class CustomerController extends Controller
     }
 
     public function store(Request $request){
-
-        $request->validate([
-            'name'=>'required|string|max:50',
-            'email' => 'nullable',
-            'mobile_no' => 'required|max:12|min:11',
-            'cnic_no' => 'nullable|max:14|min:12',
-            'phone' => 'nullable|max:12|min:10',
-            'address' => 'required',
-            'gender' => 'required',
-            'p_address' => 'nullable',
-            'passport' => 'nullable',
-            'gardion' => 'nullable|string',
-            'relation' => 'nullable',
-            'n_email' => 'nullable',
-            'preferred_choices'=>'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'n_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-        $customer = new Customer();
-        $customer->name = $request->name;
-        $customer->email = $request->email;
-        $customer->mobile_no = $request->mobile_no;
-        $customer->cnic_no = $request->cnic_no;
-        $customer->phone = $request->phone;
-        $customer->perment_address = $request->address;
-        $customer->postal_address = $request->p_address;
-        $customer->gender = $request->gender;
-        if ($files = $request->file('image')){
-            // Define upload path
-            $destinationPath = public_path('/customer_images/'); // upload path
-            // Upload Orginal Image
-            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-            $files->move($destinationPath, $profileImage);
-
-            $insert['image'] = "$profileImage";
-            // Save In Database
-            $customer->images="$profileImage";
-        }
-        $customer->passport = $request->passport;
-        $customer->guardian = $request->gardion;
-        $customer->relation = $request->relation;
-        $customer->status = 0;
-        $customer->created_by = $request->created_by;
-        $customer->save();
-        // $customer = Customer::orderby('id','desc')->first();
-
-        $nominee = new Nominee();
-        $nominee->name = $request->n_name;
-        $nominee->email = $request->n_email;
-        $nominee->mobile_no = $request->n_mobile_no;
-        $nominee->cnic_no = $request->n_cnic_no;
-        $nominee->phone = $request->n_phone;
-        $nominee->perment_address = $request->n_address;
-        $nominee->postal_address = $request->n_p_address;
-        $nominee->passport = $request->n_passport;
-        if ($files = $request->file('n_image')){
-            // Define upload path
-            $destinationPath = public_path('/customer_images/'); // upload path
-            // Upload Orginal Image
-            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-            $files->move($destinationPath, $profileImage);
-
-            $insert['image'] = "$profileImage";
-            // Save In Database
-            $nominee->images="$profileImage";
-        }
-        $nominee->gender = $request->n_gender;
-        $nominee->guardian = $request->n_gardion;
-        $nominee->relation = $request->n_relation;
-        $nominee->customer_id = $customer->id;
-
-        $nominee->save();
-
-        $order = new Booking_order();
-        $total_price = $request->total_price - ($request->installment + $request->d_payment);
-        $order->total_amount = $total_price;
-        $order->created_by = $request->created_by;
-        $order->customer_id = $customer->id;
-
-        $order->status = 0;
-        $order->save();
-
-        // $booking_order = Booking_order::orderby('id','desc')->first();
-
-        $booking = new Booking();
-        $booking->booking_orders_id = $order->id;
-        $booking->customer_id = $customer->id;
-        $booking->plot_id = $request->plot;
-        $booking->created_by = $request->created_by;
-        $booking->total_amount = $request->total_price;
-        $booking->down_payment = $request->d_payment;
-        $booking->pre_choice = $request->preferred_choices;
-        $booking->save();
-
-        // $last_booking = Booking::orderby('id','desc')->first();
-        $installment = new Booking_installment();
-        $installment->booking_order_id = $order->id;
-        $installment->booking_id = $booking->id;
-        $installment->customer_id = $customer->id;
-        $installment->installment_amount = $request->installment;
-
-        if($installment->save()){
-            $franchise = Franchise::where('user_id',session('id'))->first();
-            if($franchise != null){
-                $franchise->total_amount += $request->installment+$request->d_payment;
-                $franchise->save();
+        try{
+            $request->validate([
+                'name'=>'required|string|max:50',
+                'email' => 'nullable',
+                'mobile_no' => 'required|max:12|min:11',
+                'cnic_no' => 'nullable|max:14|min:12',
+                'phone' => 'nullable|max:12|min:10',
+                'address' => 'required',
+                'gender' => 'required',
+                'p_address' => 'nullable',
+                'passport' => 'nullable',
+                'gardion' => 'nullable|string',
+                'relation' => 'nullable',
+                'n_email' => 'nullable',
+                'preferred_choices'=>'required',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'n_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+            DB::beginTransaction();
+            $customer = new Customer();
+            $customer->name = $request->name;
+            $customer->email = $request->email;
+            $customer->mobile_no = $request->mobile_no;
+            $customer->cnic_no = $request->cnic_no;
+            $customer->phone = $request->phone;
+            $customer->perment_address = $request->address;
+            $customer->postal_address = $request->p_address;
+            $customer->gender = $request->gender;
+            if ($files = $request->file('image')){
+                // Define upload path
+                $destinationPath = public_path('/customer_images/'); // upload path
+                // Upload Orginal Image
+                $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move($destinationPath, $profileImage);
+    
+                $insert['image'] = "$profileImage";
+                // Save In Database
+                $customer->images="$profileImage";
             }
-
-            $plot_status = Plot::find($request->plot);
-            $plot_status->status = 1;
-            $plot_status->save();
-            return redirect('customer/add')->with('success','Added Succssfully');
+            $customer->passport = $request->passport;
+            $customer->guardian = $request->gardion;
+            $customer->relation = $request->relation;
+            $customer->status = 0;
+            $customer->created_by = $request->created_by;
+            $customer->save();
+            // $customer = Customer::orderby('id','desc')->first();
+    
+            $nominee = new Nominee();
+            $nominee->name = $request->n_name;
+            $nominee->email = $request->n_email;
+            $nominee->mobile_no = $request->n_mobile_no;
+            $nominee->cnic_no = $request->n_cnic_no;
+            $nominee->phone = $request->n_phone;
+            $nominee->perment_address = $request->n_address;
+            $nominee->postal_address = $request->n_p_address;
+            $nominee->passport = $request->n_passport;
+            if ($files = $request->file('n_image')){
+                // Define upload path
+                $destinationPath = public_path('/customer_images/'); // upload path
+                // Upload Orginal Image
+                $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move($destinationPath, $profileImage);
+    
+                $insert['image'] = "$profileImage";
+                // Save In Database
+                $nominee->images="$profileImage";
+            }
+            $nominee->gender = $request->n_gender;
+            $nominee->guardian = $request->n_gardion;
+            $nominee->relation = $request->n_relation;
+            $nominee->customer_id = $customer->id;
+    
+            $nominee->save();
+    
+            $order = new Booking_order();
+            $total_price = $request->total_price - ($request->installment + $request->d_payment);
+            $order->total_amount = $total_price;
+            $order->created_by = $request->created_by;
+            $order->customer_id = $customer->id;
+    
+            $order->status = 0;
+            $order->save();
+    
+            // $booking_order = Booking_order::orderby('id','desc')->first();
+    
+            $booking = new Booking();
+            $booking->booking_orders_id = $order->id;
+            $booking->customer_id = $customer->id;
+            $booking->plot_id = $request->plot;
+            $booking->created_by = $request->created_by;
+            $booking->total_amount = $request->total_price;
+            $booking->down_payment = $request->d_payment;
+            $booking->pre_choice = $request->preferred_choices;
+            $booking->save();
+    
+            // $last_booking = Booking::orderby('id','desc')->first();
+            $installment = new Booking_installment();
+            $installment->booking_order_id = $order->id;
+            $installment->booking_id = $booking->id;
+            $installment->customer_id = $customer->id;
+            $installment->installment_amount = $request->installment;
+    
+            if($installment->save()){
+                $franchise = Franchise::where('user_id',session('id'))->first();
+                if($franchise != null){
+                    $franchise->total_amount += $request->installment+$request->d_payment;
+                    $franchise->save();
+                }
+    
+                $plot_status = Plot::find($request->plot);
+                $plot_status->status = 1;
+                $plot_status->save();
+                DB::commit();
+                return redirect('customer/add')->with('success','Added Successfully');
+            }
+            else{
+                DB::rollBack();
+                return redirect()->back()->with('error','Recode Not Added');
+            }
         }
-        else{
-            return redirect()->back()->with('error','Recode Not Added');
+        catch(Exception $ex){
+            DB::rollBack();
+            return redirect()->back()->with('error',"Data Not Added");
+
         }
 
     }
