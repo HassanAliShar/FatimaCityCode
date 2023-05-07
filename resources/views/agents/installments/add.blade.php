@@ -83,18 +83,17 @@
         // $('.select2').select2();
         $('.customer_info').change(function(event){
             var id = $('.customer_info').val();
-            alert(id);
             $.ajax({
                 url:"/agent/show/customer_info/"+id,
                 type:'get',
                 success:function(response){
 
-                    $(response.installments).each(function(i,v){
-                        console.log(v);
-                        $('.hidden_boid').val(v.booking_order_id);
-                        $('.hidden_bid').val(v.booking_id);
-                        $('.show_bookingid').html("Customer Register No :"+v.booking_id);
-                    })
+                    // $(response.installments).each(function(i,v){
+                    //     console.log(v);
+                        $('.hidden_boid').val(response.booking.booking_orders_id);
+                        $('.hidden_bid').val(response.booking.id);
+                        $('.show_bookingid').html("Customer Register No :"+response.booking.id);
+                    // })
                 }
             });
         });
