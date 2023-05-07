@@ -9,15 +9,16 @@
     </div>
     <div class="row">
         <div class="col-md-12 text-center">
-            @if (isset(Session::has('success')))
-                <p class="text-success">
-                    {{ Session::get('success', 'not found') }}
-                </p>
+            @if (Session::has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ Session::get('success') }}
+                </div>
             @endif
-            @if (isset(Session::has('error')))
-                <p class="text-dagner">
-                    {{ Session::get('error', 'Not Found') }}
-                </p>
+
+            @if (Session::has('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ Session::get('error') }}
+                </div>
             @endif
             @if ($errors->any())
                 <div class="alert alert-danger">
