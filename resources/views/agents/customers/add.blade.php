@@ -9,14 +9,14 @@
     </div>
     <div class="row">
         <div class="col-md-12 text-center">
-            @if (isset($request->session()->has('success');))
+            @if (isset($request->session()->has('success')))
                 <p class="text-success">
-                    {{ $request->session()->get('success', 'Not Found'); }}
+                    {{ $request->session()->get('success', 'Not Found') }}
                 </p>
             @endif
-            @if (isset($request->session()->has('error');))
+            @if (isset($request->session()->has('error')))
                 <p class="text-dagner">
-                    {{ $request->session()->get('error', 'Not Found'); }}
+                    {{ $request->session()->get('error', 'Not Found') }}
                 </p>
             @endif
             @if ($errors->any())
