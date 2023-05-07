@@ -107,6 +107,7 @@ Route::post('/installment/add', [InstallmentController::class , 'store'])->name(
 Route::get('/installment/all_invoice/{id}',[InstallmentController::class, 'viwe_all_invoices'])->name('installment.all.invoices')->middleware('admin');
 Route::get('/get_unique_invoice/{ins_id}/{id}',[InstallmentController::class, 'get_unique_invoice'])->name('installment.unique.invoice')->middleware('admin');
 Route::get('/installment/delete/{id}/{c_id}', [InstallmentController::class, 'delete_invoice'])->name('installment.delete')->middleware('admin');
+Route::get('/installment/remaining/installment', [InstallmentController::class, 'remaining_installment_users'])->name('installment.remaining')->middleware('admin');
 Route::get('/edit_customer_installment/{id}',[AinstallmentController::class, 'edit_installment'])->name('admin.edit_customer_installment')->middleware('admin');
 Route::post('/update_customer_installment',[AinstallmentController::class, 'update_customer_installment'])->name('admin.update_customer.installment')->middleware('admin');
 
@@ -148,6 +149,7 @@ Route::get('/agent/show/customer_info/{id}', [AinstallmentController::class, 'sh
 Route::get('/agent/customer_installment_add/{customer_id}/{booking_order_id}/{booking_id}', [AinstallmentController::class ,'create_customer_installment'])->name('agent.customer.installent.add')->middleware('franchise');
 Route::post('/agent/installment/add', [AinstallmentController::class , 'store'])->name('agent.installment.add')->middleware('franchise');
 Route::get('/agent/installment/all_invoice/{id}',[AinstallmentController::class, 'viwe_all_invoices'])->name('agent.installment.all.invoices')->middleware('franchise');
+Route::get('/agent/installment/remaining',[AinstallmentController::class, 'remaining_installment_users'])->name('agent.installment.remaining')->middleware('franchise');
 Route::get('/agent/get_unique_invoice/{ins_id}/{id}',[AinstallmentController::class, 'get_unique_invoice'])->name('agent.installment.unique.invoice')->middleware('franchise');
 Route::get('/agent/installment/delete/{id}/{c_id}', [AinstallmentController::class, 'delete_invoice'])->name('agent.installment.delete')->middleware('franchise');
 Route::get('/agent/edit_customer_installment/{id}',[AinstallmentController::class, 'edit_installment'])->name('agent.edit_customer_installment')->middleware('franchise');

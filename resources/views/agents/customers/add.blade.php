@@ -9,12 +9,12 @@
     </div>
     <div class="row">
         <div class="col-md-12 text-center">
-            @if (isset(Session::has('success')))
+            @if (Session::has('success'))
                 <p class="text-success">
                     {{ Session::get('success', 'Not Found') }}
                 </p>
             @endif
-            @if (isset(Session::has('error')))
+            @if (Session::has('error'))
                 <p class="text-dagner">
                     {{ Session::get('error', 'Not Found') }}
                 </p>

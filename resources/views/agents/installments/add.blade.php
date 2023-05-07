@@ -83,11 +83,12 @@
         // $('.select2').select2();
         $('.customer_info').change(function(event){
             var id = $('.customer_info').val();
-            // alert(id);
+            alert(id);
             $.ajax({
                 url:"/agent/show/customer_info/"+id,
                 type:'get',
                 success:function(response){
+
                     $(response.installments).each(function(i,v){
                         console.log(v);
                         $('.hidden_boid').val(v.booking_order_id);
