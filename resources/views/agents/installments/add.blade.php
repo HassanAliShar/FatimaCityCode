@@ -18,15 +18,16 @@
                 <div class="panel-content">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            @if (isset($success_message))
-                                <p class="text-success">
-                                    {{ $success_message }}
-                                </p>
+                            @if (Session::has('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ Session::get('success') }}
+                                </div>
                             @endif
-                            @if (isset($error_message))
-                                <p class="text-dagner">
-                                    {{ $error_message }}
-                                </p>
+                
+                            @if (Session::has('error'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ Session::get('error') }}
+                                </div>
                             @endif
                         </div>
                         <div class="col-md-12">
