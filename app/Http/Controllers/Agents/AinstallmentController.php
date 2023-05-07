@@ -19,7 +19,7 @@ class AinstallmentController extends Controller
     }
 
     public function show_customer_info($id){
-        $customer_info = Customer::with('installments')->find($id);
+        $customer_info = Customer::with('installments')->with('booking.plot.block')->find($id);
 
         return $customer_info;
     }
@@ -74,6 +74,9 @@ class AinstallmentController extends Controller
                 $franchise->total_amount += $request->ins_amount;
                 $franchise->save();
             }
+            $customer = Customer::find($request->customer_id);
+            $customer->last_payment = Carbon::now();
+            $customer->save();
             return redirect('/agent/get_unique_invoice/'.$installment->id.'/'.$request->customer_id);
         //    return redirect('add/installment')->with('success','Installment Paid Successfully');
         }
