@@ -103,16 +103,14 @@
                                         <div class="form-group">
                                             <label for="UserAddress">Gander</label>
                                             <select class="form-control" name="gender">
-                                                <option>--Select Gende--</option>
-                                                @if ($customer_info->gender == "Male")
-                                                    <option value="Male" selected>Male</option>
-                                                @endif
-                                                @if ($customer_info->gender == "Female")
-                                                    <option selected value="Female">Female</option>
-                                                @endif
-                                                @if ($customer_info->gender == "Other")
-                                                <option selected value="Other">Other</option>
-                                                @endif
+                                                <option>--Select Gender--</option>
+                                                @foreach (genders() as $item)
+                                                    @if ($customer_info->gender == $item)
+                                                        <option value="{{ $item }}" selected>{{ $item }}</option>
+                                                    @else
+                                                        <option value="{{ $item }}">{{ $item }}</option>
+                                                    @endif
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -127,15 +125,13 @@
                                             <label for="UserAddress">Select Relation</label>
                                             <select class="form-control" name="relation">
                                                 <option>-- Select Relation</option>
-                                                @if ($customer_info->relation =="S/O")
-                                                <option selected value="S/O">S/O</option>
-                                                @endif
-                                                @if ($customer_info->relation =="D/O")
-                                                <option selected value="D/O">D/O</option>
-                                                @endif
-                                                @if ($customer_info->relation =="W/O")
-                                                <option selected value="W/O">W/O</option>
-                                                @endif
+                                                @foreach (relations() as $item)
+                                                    @if($item == $customer_info->relation)
+                                                        <option selected value="{{ $item }}">{{ $item }}</option>
+                                                    @else
+                                                        <option value="{{ $item }}">{{ $item }}</option>
+                                                    @endif
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

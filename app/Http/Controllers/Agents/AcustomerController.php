@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 class AcustomerController extends Controller
 {
     public function index(){
-        $customer = Customer::with('bookings')->with('booking.plot')->where('created_by',session()->get('id'))->get();
+        $customer = Customer::with('bookings')->with('booking.plot')->where('created_by',auth()->user()->id)->get();
         // dd($customer);
         return view('agents.customers.manage',compact('customer'));
     }
@@ -139,7 +139,7 @@ class AcustomerController extends Controller
             $installment->installment_amount = $request->installment;
     
             if($installment->save()){
-                $franchise = Franchise::where('user_id',session('id'))->first();
+                $franchise = Franchise::where('user_id',auth()->user()->id)->first();
                 $franchise->total_amount += $request->installment+$request->d_payment;
                 $franchise->save();
     
@@ -249,7 +249,7 @@ class AcustomerController extends Controller
     }
 
     public function cancelledCustomers(){
-        $customer = Customer::with('bookings')->with('booking.plot')->where('created_by',session()->get('id'))->onlyTrashed()->get();
+        $customer = Customer::with('bookings')->with('booking.plot')->where('created_by',auth()->user()->id)->onlyTrashed()->get();
         return view('agents.customers.cancelled',compact('customer'));
     }
 }

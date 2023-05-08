@@ -56,12 +56,43 @@
         <li><a href="#testimonials" class="page-scroll">Life Style</a></li>
         {{-- <li><a href="#booking_details" class="page-scroll">Booking Details</a></li> --}}
         <li><a href="#contact" class="page-scroll">Contact</a></li>
-        @if (session('email') != "")
+        @guest
+              @if (Route::has('login'))
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                  </li>
+              @endif
+
+              @if (Route::has('register'))
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                  </li>
+              @endif
+          @else
+              <li class="nav-item dropdown">
+                  <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                      {{ Auth::user()->name }}
+                  </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                                  document.getElementById('logout-form').submit();">
+                    Logout
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </li>
+              
+          @endguest
+        {{-- @if (session('email') != "")
             <li><a href="{{ route('logout') }}">Logout &nbsp;<i class="fa fa-sign-in pl-2"></i></a></li>
-            <li><a href="/profile/{{ session('id') }}">{{ session('name') }} <i class="fa fa-user pl-2"></i></a></li>
+            <li><a href="/profile/{{ auth()->user()->id }}">{{ session('name') }} <i class="fa fa-user pl-2"></i></a></li>
         @else
             <li><a href="{{ route('login') }}">LOGIN &nbsp;<i class="fa fa-sign-in pl-2"></i></a></li>
-        @endif
+        @endif --}}
       </ul>
     </div>
     <!-- /.navbar-collapse -->

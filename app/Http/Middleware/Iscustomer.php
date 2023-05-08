@@ -16,7 +16,7 @@ class Iscustomer
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->session()->get('role_id') == 2){
+        if(auth()->user()->role_id == 2){
             return $next($request);
         }
         return response('Unauthorized.', 401);

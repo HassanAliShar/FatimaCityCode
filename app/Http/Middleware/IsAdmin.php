@@ -17,7 +17,7 @@ class IsAdmin
     public function handle(Request $request, Closure $next)
     {
 
-        if($request->session()->get('role_id') == 1){
+        if(auth()->user()->role_id == 1){
             return $next($request);
         }
         return response('Unauthorized.', 401);

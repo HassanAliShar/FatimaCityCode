@@ -15,11 +15,11 @@ class AdashboardController extends Controller
 {
     public function index(){
         $available_plots = Plot::where('status',0)->get()->count();
-        $purchased_plots =Booking::where('created_by',session()->get('id'))->get()->count();
+        $purchased_plots =Booking::where('created_by',auth()->user()->id)->get()->count();
 
         $total_price = 0;
         $booking_id = 0;
-        $booking = Booking::with('installments')->where('created_by',session()->get('id'))->get();
+        $booking = Booking::with('installments')->where('created_by',auth()->user()->id)->get();
 
         // dd($booking);
         foreach($booking as $row){
@@ -31,14 +31,14 @@ class AdashboardController extends Controller
         // $installment = Booking_installment::all();
 
         $total_expanses = 0;
-        $user = User::with('franchise')->find(session('id'));
+        $user = User::with('franchise')->find(auth()->user()->id);
         // dd($user);
-        $expanse = Franchise_expence::where('user_id',session()->get('id'))->get();
+        $expanse = Franchise_expence::where('user_id',auth()->user()->id)->get();
         foreach($expanse as $xrow){
             $total_expanses += $xrow->amount;
         }
 
-        // $franchise = Franchise::where('user_id',session('id'))->first();
+        // $franchise = Franchise::where('user_id',auth()->user()->id)->first();
         // $franchise->total_amount = $total_price;
         // $franchise->save();
         // dd($purchased_plots);
