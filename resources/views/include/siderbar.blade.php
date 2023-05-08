@@ -5,7 +5,7 @@
             <span class="page-logo-text mr-1">FatimaKashmiri Admin</span>
         </a>
     </div>
-    @if (session()->get('role_id') == 1)
+    @if (auth()->user()->role_id == 1)
         <nav id="js-primary-nav" class="primary-nav" role="navigation">
 
             <ul id="js-nav-menu" class="nav-menu">
@@ -153,7 +153,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/profile/{{ session('id') }}" title="UI Components" data-filter-tags="ui components">
+                    <a href="/profile/{{ auth()->user()->id }}" title="UI Components" data-filter-tags="ui components">
                         <i class="fal fa-user"></i>
                         <span class="nav-link-text" data-i18n="nav.ui_components">Profile</span>
                     </a>

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 class AinstallmentController extends Controller
 {
     public function create(){
-        $customer = Customer::where('created_by',session()->get('id'))->get();
+        $customer = Customer::where('created_by',auth()->user()->id)->get();
         return view('agents.installments.add',compact('customer'));
     }
 
@@ -25,13 +25,13 @@ class AinstallmentController extends Controller
     }
 
     public function show($id){
-        $installment = Customer::with('bookings')->with('installments')->with('booking_orders')->where('id',$id)->where('created_by',session()->get('id'))->first();
+        $installment = Customer::with('bookings')->with('installments')->with('booking_orders')->where('id',$id)->where('created_by',auth()->user()->id)->first();
         // dd($installment);
         if(!is_null($installment)){
             return view('agents.installments.manage',compact('installment'));
         }
         else{
-            $installment = Customer::with('bookings')->with('installments')->with('booking_orders')->where('id',$id)->where('created_by',session()->get('id'))->onlyTrashed()->first();
+            $installment = Customer::with('bookings')->with('installments')->with('booking_orders')->where('id',$id)->where('created_by',auth()->user()->id)->onlyTrashed()->first();
             return view('agents.installments.manage',compact('installment'));
 
         }
@@ -154,7 +154,7 @@ class AinstallmentController extends Controller
             ->whereNull('booking_installments.id')
             ->select('customers.id','customers.last_payment')
             ->whereNull('deleted_at')
-            ->where('created_by',session('id'))
+            ->where('created_by',auth()->user()->id)
             ->get();
             // ->filter(function ($customers) {
             //     $lastPaymentDate = Carbon::parse($customers->last_payment);

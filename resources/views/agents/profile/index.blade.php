@@ -14,7 +14,7 @@
                 </p>
             @endif
         </div>
-        <form method="post" action="/update_profile/{{ session('id') }}">
+        <form method="post" action="/update_profile/{{ auth()->user()->id }}">
             <div class="form-row">
                 @csrf
                 <div class="col-md-2 offset-md-5 shadow mt-2 mb-4 text-center">

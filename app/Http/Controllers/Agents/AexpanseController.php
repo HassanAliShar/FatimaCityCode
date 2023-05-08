@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class AexpanseController extends Controller
 {
     public function index(){
-        $expanse = Franchise_expence::where('user_id',session()->get('id'))->get();
+        $expanse = Franchise_expence::where('user_id',auth()->user()->id)->get();
 
         $user=[];
         foreach($expanse as $row){
