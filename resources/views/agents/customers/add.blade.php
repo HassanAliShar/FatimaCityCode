@@ -82,7 +82,7 @@
                 </div>
                 <div class="col-md-6">
                     <h5 class="size text-center text-success pt-3"></h5>
-                    <input type="hidden" value="{{ session('id') }}" name="created_by"/>
+                    <input type="hidden" value="{{ auth()->user()->id }}" name="created_by"/>
                     <input type="hidden" class="hidden_size" name="plot_size"/>
                     <h4 class="showtotal_price text-center text-success pt-0"></h5>
                     <input type="hidden" class="hidden_price" name="total_price"/>
@@ -152,9 +152,9 @@
                         <label for="UserAddress">Gander</label>
                         <select class="form-control" required name="gender">
                             <option>--Select Gende--</option>
-                            <option>Male</option>
-                            <option>Female</option>
-                            <option>Other</option>
+                            @foreach (genders() as $item)
+                                <option value="{{ $item }}">{{ $item }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -169,9 +169,9 @@
                         <label for="UserAddress">Select Relation</label>
                         <select class="form-control" required name="relation">
                             <option>-- Select Relation</option>
-                            <option value="S/O">S/O</option>
-                            <option value="D/O">D/O</option>
-                            <option value="W/O">W/O</option>
+                            @foreach (relations() as $item)
+                                <option value="{{ $item }}">{{ $item }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -238,7 +238,11 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="UserAddress">Nominee Gander</label>
-                        <input id="UserAddress" value="{{ old('n_gender') }}" required class="form-control" type="text" name="n_gender" >
+                        <select class="form-control" required name="n_gender">
+                            @foreach (genders() as $item)
+                                <option value="{{ $item }}">{{ $item }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -251,9 +255,9 @@
                     <div class="form-group">
                         <label for="UserAddress">Nominee Select Relation</label>
                         <select class="form-control" required name="n_relation">
-                            <option value="S/O">S/O</option>
-                            <option value="D/O">D/O</option>
-                            <option value="W/O">W/O</option>
+                            @foreach (relations() as $item)
+                                <option value="{{ $item }}">{{ $item }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
