@@ -100,20 +100,15 @@ class CustomerController extends Controller
             $nominee->guardian = $request->n_gardion;
             $nominee->relation = $request->n_relation;
             $nominee->customer_id = $customer->id;
-    
             $nominee->save();
-    
             $order = new Booking_order();
             $total_price = $request->total_price - ($request->installment + $request->d_payment);
             $order->total_amount = $total_price;
             $order->created_by = $request->created_by;
             $order->customer_id = $customer->id;
-    
             $order->status = 0;
             $order->save();
-    
             // $booking_order = Booking_order::orderby('id','desc')->first();
-    
             $booking = new Booking();
             $booking->booking_orders_id = $order->id;
             $booking->customer_id = $customer->id;
@@ -123,21 +118,18 @@ class CustomerController extends Controller
             $booking->down_payment = $request->d_payment;
             $booking->pre_choice = $request->preferred_choices;
             $booking->save();
-    
             // $last_booking = Booking::orderby('id','desc')->first();
             $installment = new Booking_installment();
             $installment->booking_order_id = $order->id;
             $installment->booking_id = $booking->id;
             $installment->customer_id = $customer->id;
             $installment->installment_amount = $request->installment;
-    
             if($installment->save()){
-                $franchise = Franchise::where('user_id',session('id'))->first();
+                $franchise = Franchise::where('user_id',auth()->user()->id)->first();
                 if($franchise != null){
                     $franchise->total_amount += $request->installment+$request->d_payment;
                     $franchise->save();
                 }
-    
                 $plot_status = Plot::find($request->plot);
                 $plot_status->status = 1;
                 $plot_status->save();
@@ -250,10 +242,17 @@ class CustomerController extends Controller
 
     public function destroy(Customer $customer){
         try{
+            DB::beginTransaction();
+            $booking = Booking::where('customer_id',$customer->id)->first();
+            $plot = Plot::find($booking->plot_id);
+            $plot->status = 0;
+            $plot->save();
             $customer->delete();
+            DB::commit();
             return redirect()->back()->with('success',"File Has Been Cancelled Successfully");
         }
         catch(Exception $ex){
+            DB::rollBack();
             return redirect()->back()->with('error',"File Not Cancel");
         }
     }

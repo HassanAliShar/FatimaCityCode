@@ -38,7 +38,7 @@ class FranchiseController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = sha1($request->password);
+        $user->password = Hash::make($request->password);
         $user->mobile_no = $request->mobile_no;
         $user->address = $request->address;
         $user->cnic_no = $request->cnic;

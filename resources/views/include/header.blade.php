@@ -53,7 +53,17 @@
             </a>
         </div> --}}
         <div class="hidden-md-down">
-            <a class="header-icon" style="cursor: pointer;" href="{{ route('logout') }}">Logout &nbsp;<i class="fa fa-sign-in pl-2"></i></a>
+            <a class="header-icon" style="cursor: pointer;" href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                Logout
+                &nbsp;<i class="fa fa-sign-in pl-2"></i>
+            </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+            {{-- <a class="header-icon" style="cursor: pointer;" href="{{ route('logout') }}">Logout &nbsp;<i class="fa fa-sign-in pl-2"></i></a> --}}
         </div>
         <!-- app shortcuts -->
 

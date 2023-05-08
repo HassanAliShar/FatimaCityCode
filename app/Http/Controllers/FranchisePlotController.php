@@ -38,7 +38,7 @@ class FranchisePlotController extends Controller
         $plot->total_price = $request->total_price;
         $plot->down_payment = $request->downpay;
         $plot->status = 0;
-        $plot->user_id = session('id');
+        $plot->user_id = auth()->user()->id;
         $plot->confirm_status = 'Pending';
         $plot->ins_payment = $request->installmentpay;
         if($plot->save()){
@@ -75,7 +75,7 @@ class FranchisePlotController extends Controller
         $plot->total_price = $request->total_price;
         $plot->down_payment = $request->downpay;
         $plot->status = 0;
-        $plot->user_id = session('id');
+        $plot->user_id = auth()->user()->id;
         $plot->confirm_status = 'Pending';
         $plot->ins_payment = $request->installmentpay;
         if($plot->update()){
